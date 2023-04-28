@@ -7,8 +7,8 @@ public class CheckPoint : MonoBehaviour
     public bool isStartpoint;
     public bool isStartpointOnly;
     public bool isCheckpoint;
-    //public GameObject player; OLD
-    public GameObject gameManager;
+    public GameObject player;
+    //private Transform thisPoint;
     public GameObject oldCheckpoint;
     public Respawner respawn;
 
@@ -16,11 +16,8 @@ public class CheckPoint : MonoBehaviour
     void Start()
     {
         isCheckpoint = false;
-        //player = GameObject.FindGameObjectWithTag("Player");
-        //respawn = player.GetComponent<Respawner>();
-
-        gameManager = GameObject.Find("GameManager");
-        respawn = gameManager.GetComponent<Respawner>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        respawn = player.GetComponent<Respawner>();
     }
 
     // Update is called once per frame
@@ -33,11 +30,11 @@ public class CheckPoint : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && !isStartpointOnly)
         {
-            oldCheckpoint = gameManager.gameObject.GetComponent<Respawner>().currentCheckpoint;
+            oldCheckpoint = player.gameObject.GetComponent<Respawner>().currentCheckpoint;
             oldCheckpoint.GetComponent<CheckPoint>().isCheckpoint = false;
             
             isCheckpoint = true;
-            gameManager.gameObject.GetComponent<Respawner>().currentCheckpoint = gameObject;
+            player.gameObject.GetComponent<Respawner>().currentCheckpoint = gameObject;
 
             respawn.UpdateCheckPoints();
 

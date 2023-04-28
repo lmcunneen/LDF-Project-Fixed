@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class NavmeshAgentScript : MonoBehaviour
 {
-    // THIS SCRIPT IS ALL ABOUT SETTING MOVEMENT ORDERS TO A GUARD. 
 
     public Transform target; //This is the player's body's transform
     public GameObject player; 
@@ -30,18 +29,11 @@ public class NavmeshAgentScript : MonoBehaviour
     public float delay = 3f;
     public float patrolCheckRange;
 
-    public bool jobIsPatrol;
-    public bool jobIsStandGaurd;
-
     // This enemy uses an integer to flag the AI state:
 
     // 1 = Head to the player and raycast to check LOS again
-    // 2 = Head to player's last known location.
+    // 2 = Head to player's last know location.
     // 3 = Patrol
-    // To Be Implemented options next...
-    // 4 = Stand at fixed position and rotation
-    // 5 = Return to fixed position
-
 
     void Start()
     {
@@ -51,56 +43,12 @@ public class NavmeshAgentScript : MonoBehaviour
         PatrolPoint = 0;
         PatrolPointCount = wayPoints.Length;
         patrolCheckRange = 0.5f;
-
-        if (!jobIsPatrol && !jobIsStandGaurd)
-        {
-            Debug.LogError(gameObject + " has no job set!");
-            Debug.Break();
-        }
-
-        if (jobIsPatrol && jobIsStandGaurd)
-        {
-            Debug.LogError(gameObject + " has TWO jobs set! You must pick one only");
-            Debug.Break();
-        }
-
-        if (wayPoints[0] == null)
-        {
-            Debug.LogError(gameObject + " has no starting waypoint! You MUST set one!");
-            Debug.Break();
-        }
-
-        ResetJobState();
-    }
-
-    public void ResetJobState()
-    {
-        if (jobIsStandGaurd)
-        {
-            AIState = 4;
-            transform.position = wayPoints[0].transform.position;
-            transform.rotation = wayPoints[0].transform.rotation;
-        }
-
-        if (jobIsPatrol)
-        {
-            AIState = 3;
-        }
     }
 
     void DelayedSwitch()
     {
-        // This returns the guard to its job.
-
-        if (jobIsPatrol)
-        {
-            AIState = 3;
-        }
-        else
-        {
-            AIState = 5;
-        }
-
+        // This returns the guard to its patrol.
+        AIState = 3;
     }
 
     // Update is called once per frame
@@ -123,11 +71,12 @@ public class NavmeshAgentScript : MonoBehaviour
         {
             agent.speed = chaseSpeed;
             seenDist = Vector3.Distance(lastSeenAt, guardPosition);
-            if (seenDist > 0.5)
+            if (seenDist > 0.3)
             {
                 agent.SetDestination(lastSeenAt);
+                //Debug.Log("lastSeenAt = " + lastSeenAt + " seenDist = " + seenDist);
             }
-            else if (seenDist <= 0.5)
+            else if (seenDist <= 0.3)
             {
                 Invoke("DelayedSwitch", delay);
                 seenDist = 100;
@@ -155,33 +104,6 @@ public class NavmeshAgentScript : MonoBehaviour
                 PatrolPoint++;
                 
             }
-        }
-
-        if (AIState == 4) // GUARD WHERE YOU ARE.
-        {
-            // NOTHING!
-        }
-
-        if (AIState == 5) // RETURN TO GUARD STATION
-        {
-            agent.speed = patrolSpeed;
-            currentDestination = wayPoints[0].transform;
-            dist = Vector3.Distance(currentDestination.position, transform.position);
-            if (dist > patrolCheckRange)
-            {
-                agent.SetDestination(currentDestination.position);
-            }
-            else
-            {
-                gameObject.transform.position = wayPoints[0].transform.position;
-                gameObject.transform.rotation = wayPoints[0].transform.rotation;
-                AIState = 4;
-            }
-        }
-
-        if (AIState == 6)
-        {
-            // Set up to head to a location given by an alarm or something. Needs a 'Last Seen At'
         }
     }
 }

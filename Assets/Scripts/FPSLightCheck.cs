@@ -35,8 +35,10 @@ public class FPSLightCheck : MonoBehaviour
 
         hitLayers = LayerMask.GetMask("Player") | LayerMask.GetMask("Default") | LayerMask.GetMask("Environment");
 
-        VisibilityInitialised();
-
+        if (ignoresLightCheck == true)
+        {
+            isVisible = true;
+        }
     }
 
 
@@ -129,17 +131,5 @@ public class FPSLightCheck : MonoBehaviour
             }
         }
         //Debug.Log("isVisible =" + isVisible);
-    }
-
-    public void VisibilityInitialised()
-    {
-        HUDvignette.gameObject.SetActive(false);
-
-        if (ignoresLightCheck == true)
-        {
-            useHUDvignette = false;
-            isVisible = true;
-            Debug.Log("IgnoreLightCheck Visibility activated");
-        }
     }
 }
