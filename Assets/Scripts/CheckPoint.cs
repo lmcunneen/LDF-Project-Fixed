@@ -5,10 +5,10 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour
 {
     public bool isStartpoint;
-    public bool isStartpointOnly;
+    public bool isStartpointOnly; // Only set this to true is you don't want the player to be able to return to their original startpoint to make it the CP again.
     public bool isCheckpoint;
-    public GameObject player;
-    //private Transform thisPoint;
+    //public GameObject player; OLD
+    public GameObject gameManager;
     public GameObject oldCheckpoint;
     public Respawner respawn;
 
@@ -16,25 +16,28 @@ public class CheckPoint : MonoBehaviour
     void Start()
     {
         isCheckpoint = false;
-        player = GameObject.FindGameObjectWithTag("Player");
-        respawn = player.GetComponent<Respawner>();
+        if (isStartpoint)
+        {
+            if (gameObject.tag != "StartPoint")
+            {
+                gameObject.tag = "StartPoint";
+            }
+        }
+
+        gameManager = GameObject.Find("GameManager");
+        respawn = gameManager.GetComponent<Respawner>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player" && !isStartpointOnly)
         {
-            oldCheckpoint = player.gameObject.GetComponent<Respawner>().currentCheckpoint;
+            oldCheckpoint = gameManager.gameObject.GetComponent<Respawner>().currentCheckpoint;
             oldCheckpoint.GetComponent<CheckPoint>().isCheckpoint = false;
             
             isCheckpoint = true;
-            player.gameObject.GetComponent<Respawner>().currentCheckpoint = gameObject;
+            gameManager.gameObject.GetComponent<Respawner>().currentCheckpoint = gameObject;
 
             respawn.UpdateCheckPoints();
 

@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 5f77bcf08217f9c41a93b151c1286402
+guid: 2b04ce831db90cd4c8069cd7042cfe53
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - HUDvignette: {fileID: 1080405404588643714, guid: 9aa06092943b63c479af76c3c58747ed, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
