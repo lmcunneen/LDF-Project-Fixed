@@ -4,19 +4,32 @@ using UnityEngine;
 
 public class BlacksmithLight : MonoBehaviour
 {
-    public float intervalTime = 3.0f;
+    public float intervalSeconds;
+    public float activeLength;
 
-    private void Start()
+    private BoxCollider boxCollider;
+
+    private void Awake()
     {
-        StartCoroutine(AnvilLight());
+        boxCollider = GetComponent<BoxCollider>();
+        StartCoroutine(LightSystem());
     }
 
-    private IEnumerator AnvilLight()
+    private IEnumerator LightSystem()
     {
-        for (int i = 0; i < intervalTime; i++)
+        while(true)
         {
-            yield return new WaitForSeconds(1f);
-            Debug.Log("Hello, world!");
+            //Turn My game object that is set to false(off) to True(on).
+            boxCollider.enabled = false;
+
+            //Wait for x amount of secs.
+            yield return new WaitForSeconds(intervalSeconds);
+
+            //Game object will turn off
+            boxCollider.enabled = true;
+
+            //Turn the Game Oject back off after x amount of secs.
+            yield return new WaitForSeconds(activeLength);
         }
     }
 }
