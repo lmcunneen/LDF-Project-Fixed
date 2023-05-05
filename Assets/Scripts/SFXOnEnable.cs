@@ -12,6 +12,9 @@ public class SFXOnEnable : MonoBehaviour
     public AudioSource sourceToPlay; // THIS NEEDS TO BE AN AUDIOSOURCE COMPONENT IN YOUR LEVEL! Maybe 'SFXSytem'
     public float volume;
 
+    public float intervalSeconds;
+    public float durationSeconds;
+
     private void Start()
     {
         if (sourceToPlay == null)
@@ -27,13 +30,17 @@ public class SFXOnEnable : MonoBehaviour
         {
             remoteObjectLoc = remoteSFXLocation.transform.position;
         }
+
+        StartCoroutine(SFXRoutine());
     }
 
-    private void OnEnable()
+    private IEnumerator SFXRoutine()
     {
-        while (remoteSFXLocation == enabled)
+        while(true)
         {
-            AudioSource.PlayClipAtPoint(soundToPlay, remoteObjectLoc); // THIS PLAYS IT AT THE ITEM PICKUP LOCATION
+            yield return new WaitForSeconds(intervalSeconds);
+            AudioSource.PlayClipAtPoint(soundToPlay, remoteObjectLoc);
+            yield return new WaitForSeconds(durationSeconds);
         }
     }
 
