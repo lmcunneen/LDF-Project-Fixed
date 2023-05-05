@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea39d48d2521d948a5eb91c7ff0fc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundToPlay: {fileID: 8300000, guid: 87ac17908c249224191755b5d4b01090, type: 3}
+  soundToPlay: {fileID: 8300000, guid: a2a6723c07c29c6478ead2f47f2f3782, type: 3}
   remoteSoundEffect: 0
   remoteSFXLocation: {fileID: 0}
   sourceToPlay: {fileID: 0}
