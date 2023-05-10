@@ -26,7 +26,7 @@ public class PickupThing : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && isRunOverPickUp)
         {
             CollectionEvent();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
 
             if (this.GetComponent<InvItemID>() != null)
             {
@@ -38,7 +38,7 @@ public class PickupThing : MonoBehaviour
 
     public void RemoveObject()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void CollectionEvent()
