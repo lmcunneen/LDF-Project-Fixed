@@ -183,7 +183,7 @@ public class BasicInteract : MonoBehaviour
                         interactiveObject.GetComponent<PickupThing>().CollectionEvent();
                     }
 
-                    Destroy(interactiveObject); // REMOVE OBJECT FROM THE WORLD
+                    interactiveObject.SetActive(false); // DISABLES OBJECT FROM THE WORLD
                 }
                 else if (targetIsInteractive)
                 {
