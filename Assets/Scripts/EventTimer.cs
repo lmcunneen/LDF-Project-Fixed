@@ -23,7 +23,7 @@ public class EventTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timerOn)
+        if (timerOn)
         {
             if (timeLeft > 0)
             {
@@ -66,5 +66,10 @@ public class EventTimer : MonoBehaviour
         timerOn = false;
         timerText.text = "";
         timerText.enabled = false;
+    }
+
+    public void SetTimerValue(float newTime)
+    {
+        timeLeft = newTime;
     }
 }
