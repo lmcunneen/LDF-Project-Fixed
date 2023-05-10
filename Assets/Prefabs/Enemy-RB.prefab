@@ -113,6 +113,7 @@ MonoBehaviour:
   parent: {fileID: 961756178307840725}
   guardPosition: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
+  guardHeightOffset: 0.417
   inLOS: 0
   direction: {x: 0, y: 0, z: 0}
   hitLayers:
