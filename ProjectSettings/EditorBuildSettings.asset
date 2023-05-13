@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/OtherLevel.unity
     guid: 0963634a5d64e5245981d91870d8f883
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Town Stakeout.unity
-    guid: 65e57768490f8144f809b7a34014114a
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
